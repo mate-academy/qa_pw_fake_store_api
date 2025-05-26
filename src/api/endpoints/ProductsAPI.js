@@ -12,4 +12,10 @@ export class ProductsAPI extends BaseAPI {
       haders: this._headers,
     });
   }
+
+  async deleteProductById(id) {
+    return this.request.delete(`${this._endpoint}/${id}`, {
+      headers: this._headers,
+    });
+  }
 }
