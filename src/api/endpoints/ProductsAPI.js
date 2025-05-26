@@ -18,4 +18,10 @@ export class ProductsAPI extends BaseAPI {
       headers: this._headers,
     });
   }
+
+  async getProductById(id) {
+    return this.request.get(`${this._endpoint}/${id}`, {
+      headers: this._headers,
+    });
+  }
 }

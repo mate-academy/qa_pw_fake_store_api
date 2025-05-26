@@ -42,7 +42,7 @@ export class BaseAPI {
     });
   }
 
-  async assertBodyHasId(response) {
+  async assertBodyHasIdField(response) {
     await this.step(`Assert response body has ID`, async () => {
       const body = await this.parseBody(response);
 
