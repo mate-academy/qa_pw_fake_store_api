@@ -4,7 +4,7 @@ import { SUCCESS_CODE } from './constants/responceCodes';
 
 export class BaseAPI {
   _endpoint;
-  _headers;
+  _headers = { 'content-type': 'application/json' };
 
   constructor(request) {
     this.request = request;

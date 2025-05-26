@@ -5,7 +5,6 @@ export class UsersAPI extends BaseAPI {
   constructor(request) {
     super(request);
     this._endpoint = '/users';
-    this._headers = { 'content-type': 'application/json' };
   }
 
   async createNewUser(body) {
