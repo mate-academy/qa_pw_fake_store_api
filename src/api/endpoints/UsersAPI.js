@@ -11,7 +11,7 @@ export class UsersAPI extends BaseAPI {
   async createNewUser(body) {
     return await this.step(`Create new user`, async () => {
       return await this.request.post(this._endpoint, {
-        data: body,
+        json: body,
         headers: this._headers,
       });
     });
@@ -20,7 +20,7 @@ export class UsersAPI extends BaseAPI {
   async updateUser(userId, body) {
     return await this.step(`Update user data`, async () => {
       return await this.request.put(`${this._endpoint}/${userId}`, {
-        data: body,
+        json: body,
         headers: this._headers,
       });
     });

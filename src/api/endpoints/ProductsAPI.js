@@ -11,7 +11,7 @@ export class ProductAPI extends BaseAPI {
   async createNewProduct(body) {
     return await this.step(`Create new product`, async () => {
       return await this.request.post(this._endpoint, {
-        data: body,
+        json: body,
         headers: this._headers,
       });
     });
@@ -28,7 +28,7 @@ export class ProductAPI extends BaseAPI {
   async updateProduct(productId, body) {
     return await this.step(`Update product data`, async () => {
       return await this.request.put(`${this._endpoint}/${productId}`, {
-        data: body,
+        json: body,
         headers: this._headers,
       });
     });
