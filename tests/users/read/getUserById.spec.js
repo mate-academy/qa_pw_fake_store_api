@@ -5,6 +5,6 @@ test('Read user information by Id', async ({ usersApi }) => {
 
   const response = await usersApi.getUser(userId);
 
-  await usersApi.assertSuccessResponseCode(response);
+  await usersApi.assertSuccessResponseCode200(response);
   await usersApi.assertBodyHasId(response);
 });
