@@ -1,4 +1,3 @@
-import { json } from 'stream/consumers';
 import { expect } from '../../../tests/_fixtures/fixtures';
 import { BaseAPI } from '../BaseAPI';
 
@@ -12,7 +11,7 @@ export class ProductAPI extends BaseAPI {
   async createNewProduct(body) {
     return await this.step(`Create new product`, async () => {
       return await this.request.post(this._endpoint, {
-        json: body,
+        data: body,
         headers: this._headers,
       });
     });
