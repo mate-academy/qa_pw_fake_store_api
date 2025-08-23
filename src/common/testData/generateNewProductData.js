@@ -10,7 +10,7 @@ export function generateNewProductData(logger = null) {
   };
 
   if (logger) {
-    logger.debug(`Generated new product data: ${JSON.stringify(logger)}`);
+    logger.debug(`Generated new product data: ${JSON.stringify(product)}`);
   }
 
   return product;

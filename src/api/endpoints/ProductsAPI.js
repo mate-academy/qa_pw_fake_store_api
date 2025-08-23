@@ -33,6 +33,7 @@ export class ProductsAPI extends BaseAPI {
     });
   }
 
+
   async getProduct(productId) {
     return await this.step(`Get product by id ${productId}`, async () => {
       const getENDPOINT = `${this._endpoint}/${productId}`;
