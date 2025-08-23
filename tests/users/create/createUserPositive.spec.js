@@ -1,8 +1,8 @@
 import { test } from '../../_fixtures/fixtures';
 
-test('Create user', async ({ newUserData, usersApi }) => {
-  const response = await usersApi.createNewUser(newUserData);
+test('Create user', async ({ newUserData, usersAPI }) => {
+  const response = await usersAPI.createNewUser(newUserData);
 
-  await usersApi.assertSuccessResponseCode(response);
-  await usersApi.assertBodyHasId(response);
+  await usersAPI.assertSuccessResponseCode(response, 'POST');
+  await usersAPI.assertBodyHasId(response);
 });
