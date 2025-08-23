@@ -11,6 +11,16 @@ Test:
 2. Assert that the Success Response code is received
 */
 
-test.beforeEach(async ({}) => {});
+let productId;
+test.beforeEach(async ({ newProductData, productsApi }) => {
+  const response = await productsApi.createNewProduct(newProductData);
 
-test('Delete product', async ({}) => {});
+  await productsApi.assertSuccessCreateResponseCode(response);
+  productId = await productsApi.parseIdFromBody(response);
+
+});
+
+test('Delete product', async ({ productsApi }) => {
+  const deleteResponse = await productsApi.deleteProduct(productId);
+  await productsApi.assertSuccessResponseCode(deleteResponse);
+});
