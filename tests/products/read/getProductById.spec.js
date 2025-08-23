@@ -7,16 +7,6 @@ Test:
 3. Assert that the Response Body contains field 'id'
 */
 
-let productId;
-
-test.beforeEach(async ({ newProductData, productsAPI }) => {
-  const response = await productsAPI.createNewProduct(newProductData);
-
-  await productsAPI.assertSuccessResponseCode(response, 'POST');
-
-  productId = await productsAPI.parseIdFromBody(response);
-});
-
 test('Get product by Id', async ({ productsAPI }) => {
   // Spike for not working api
   productId = 1;
