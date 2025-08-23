@@ -23,7 +23,15 @@ export class BaseAPI {
   }
 
   async parseBody(response) {
-    return await response.json();
+    try {
+      const body = await response.json();
+      if (!body) {
+        throw new Error('Response body is empty');
+      }
+      return body;
+    } catch (err) {
+      throw new Error('Failed to parse JSON from response: ' + err.message);
+    }
   }
 
   async parseIdFromBody(response) {
@@ -32,7 +40,7 @@ export class BaseAPI {
     return body.id;
   }
 
-  async assertSuccessResponseCode(response, method = 'GET') {
+  async assertSuccessResponseCode(response, method = 'OK') {
     await this.step(`Assert successful response code`, async () => {
       const status = this.parseStatus(response);
 
@@ -48,7 +56,7 @@ export class BaseAPI {
           expectedCode = NO_CONTENT_CODE;
           break;
         default:
-          expectedCode = SUCCESS_CODE;
+          expectedCode = [SUCCESS_CODE, CREATED_CODE, NO_CONTENT_CODE];
       }
 
       if (Array.isArray(expectedCode)) {

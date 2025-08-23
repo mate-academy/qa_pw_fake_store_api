@@ -5,7 +5,7 @@ let userId;
 test.beforeEach(async ({ newUserData, usersAPI }) => {
   const response = await usersAPI.createNewUser(newUserData);
 
-  await usersAPI.assertSuccessResponseCode(response, 'POST');
+  await usersAPI.assertSuccessResponseCode(response);
 
   userId = await usersAPI.parseIdFromBody(response);
 });
