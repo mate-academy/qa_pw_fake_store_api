@@ -25,7 +25,7 @@ export class ProductsAPI extends BaseAPI {
   }
 
   async deleteProduct(productId) {
-    return await this.step(`Delete product by id {productId}`, async () => {
+    return await this.step(`Delete product by id ${productId}`, async () => {
       const deleteENDPOINT = `${this._endpoint}/${productId}`;
       return await this.request.delete(deleteENDPOINT, {
         headers: this._headers,
@@ -52,39 +52,12 @@ export class ProductsAPI extends BaseAPI {
     });
   }
 
-  async assertTitleHasCorrectValue(response, titleProp) {
-    await this.step('Assert tittle has correct value', async () => {
-      const { title } = await this.parseBody(response);
-      expect( title ).toBe(titleProp);
+  async assertPropertyEquals(response, property, expectedValue) {
+    await this.step('Assert title has correct value', async () => {
+      const properties = await this.parseBody(response);
+      expect( properties[property] ).toBe(expectedValue);
     });
   }
 
-  async assertPriceHasCorrectValue(response, priceProp) {
-    await this.step('Assert price has correct value', async () => {
-      const { price } = await this.parseBody(response);
-      expect(price).toBe(priceProp);
-    });
-  }
-
-  async assertDescriptionHasCorrectValue(response, descriptionProp) {
-    await this.step('Assert description has correct value', async () => {
-      const { description } = await this.parseBody(response);
-      expect(description).toBe(descriptionProp);
-    });
-  }
-
-  async assertCategoryHasCorrectValue(response, categoryProp) {
-    await this.step('Assert category has correct value', async () => {
-      const { category } = await this.parseBody(response);
-      expect(category).toBe(categoryProp);
-    });
-  }
-
-  async assertImageHasCorrectValue(response, imageProp) {
-    await this.step('Assert image has correct value', async () => {
-      const { image } = await this.parseBody(response);
-      expect(image).toBe(imageProp);
-    });
-  }
 
 }

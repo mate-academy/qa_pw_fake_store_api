@@ -3,7 +3,7 @@ import { testStep } from '../common/helpers/pw';
 import {
   SUCCESS_CODE,
   CREATE_SUCCESS_CODE,
-} from './constants/responceCodes';
+} from './constants/responseCodes';
 
 export class BaseAPI {
   _endpoint;

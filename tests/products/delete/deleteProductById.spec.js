@@ -21,7 +21,6 @@ test.beforeEach(async ({ newProductData, productsApi }) => {
 });
 
 test('Delete product', async ({ productsApi }) => {
-  const response = await productsApi.deleteProduct(productId);
-
-  await productsApi.assertSuccessResponseCode(response);
+  const deleteResponse = await productsApi.deleteProduct(productId);
+  await productsApi.assertSuccessResponseCode(deleteResponse);
 });

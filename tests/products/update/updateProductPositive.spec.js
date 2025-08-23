@@ -1,5 +1,5 @@
 import { test } from '../../_fixtures/fixtures';
-import { faker } from '@faker-js/faker';
+
 
 /*
 Preconditions:
@@ -16,7 +16,7 @@ Test:
 6. Assert the Response Body contains correct Category
 7. Assert the Response Body contains correct Image
 */
-
+const productProps = ['title', 'price', 'description', 'category',  'image']
 let productId;
 test.beforeEach(async ({ productsApi, newProductData}) => {
   const response = await productsApi.createNewProduct(newProductData);
@@ -30,6 +30,7 @@ test('Update product with new data', async ({
     updateProductData,
     productsApi
   }) => {
+
     const response = await productsApi.updateProduct(
       productId,
       updateProductData
@@ -37,25 +38,13 @@ test('Update product with new data', async ({
 
     await productsApi.assertSuccessResponseCode(response);
 
-    await productsApi.assertTitleHasCorrectValue(
-      response,
-      updateProductData.title,
-    );
-    await productsApi.assertPriceHasCorrectValue(
-      response,
-      updateProductData.price,
-    );
-    await productsApi.assertDescriptionHasCorrectValue(
-      response,
-      updateProductData.description,
-    );
-    await productsApi.assertCategoryHasCorrectValue(
-      response,
-      updateProductData.category,
-    );
-    await productsApi.assertImageHasCorrectValue(
-      response,
-      updateProductData.image,
-    );
+    for (let prop of productProps) {
+      await productsApi.assertPropertyEquals(
+        response,
+        prop,
+        updateProductData[prop],
+      );
+    }
+
 });
 
