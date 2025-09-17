@@ -4,5 +4,5 @@ test('Create user', async ({ newUserData, usersApi }) => {
   const response = await usersApi.createNewUser(newUserData);
 
   await usersApi.assertSuccessResponseCode(response);
-  await usersApi.assertBodyHasId(response);
+  await usersApi.assertBodyHasIdField(response);
 });
