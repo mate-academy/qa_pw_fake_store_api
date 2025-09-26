@@ -3,11 +3,11 @@ import { UsersAPI } from '../../src/api/endpoints/UsersAPI';
 import { generateNewUserData } from '../../src/common/testData/generateNewUserData';
 
 export const test = base.extend<{
-  usersApi;
+  usersAPI;
   newUserData;
   updateUserData;
 }>({
-  usersApi: async ({ request }, use) => {
+  usersAPI: async ({ request }, use) => {
     const client = new UsersAPI(request);
 
     await use(client);

@@ -2,16 +2,16 @@ import { test } from '../../_fixtures/fixtures';
 
 let userId;
 
-test.beforeEach(async ({ newUserData, usersApi }) => {
-  const response = await usersApi.createNewUser(newUserData);
+test.beforeEach(async ({ newUserData, usersAPI }) => {
+  const response = await usersAPI.createNewUser(newUserData);
 
-  await usersApi.assertSuccessResponseCode(response);
+  await usersAPI.assertSuccessResponseCode(response);
 
-  userId = await usersApi.parseIdFromBody(response);
+  userId = await usersAPI.parseIdFromBody(response);
 });
 
-test('Delete user by Id', async ({ usersApi }) => {
-  const response = await usersApi.deleteUser(userId);
+test('Delete user by Id', async ({ usersAPI }) => {
+  const response = await usersAPI.deleteUser(userId);
 
-  await usersApi.assertSuccessResponseCode(response);
+  await usersAPI.assertSuccessResponseCode(response);
 });

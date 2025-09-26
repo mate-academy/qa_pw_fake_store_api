@@ -1,6 +1,10 @@
 import { expect } from '../../tests/_fixtures/fixtures';
 import { testStep } from '../common/helpers/pw';
-import { SUCCESS_CODE } from './constants/responceCodes';
+import {
+  SUCCESS_CODE,
+  CREATED_CODE,
+  NO_CONTENT_CODE,
+} from './constants/responceCodes';
 
 export class BaseAPI {
   _endpoint;
@@ -19,7 +23,15 @@ export class BaseAPI {
   }
 
   async parseBody(response) {
-    return await response.json();
+    try {
+      const body = await response.json();
+      if (!body) {
+        throw new Error('Response body is empty');
+      }
+      return body;
+    } catch (err) {
+      throw new Error('Failed to parse JSON from response: ' + err.message);
+    }
   }
 
   async parseIdFromBody(response) {
@@ -28,9 +40,30 @@ export class BaseAPI {
     return body.id;
   }
 
-  async assertSuccessResponseCode(response) {
-    await this.step(`Assert the code ${SUCCESS_CODE} is returned`, async () => {
-      expect(this.parseStatus(response)).toEqual(SUCCESS_CODE);
+  async assertSuccessResponseCode(response, method = 'OK') {
+    await this.step(`Assert successful response code`, async () => {
+      const status = this.parseStatus(response);
+
+      let expectedCode;
+      switch (method.toUpperCase()) {
+        case 'GET':
+          expectedCode = SUCCESS_CODE;
+          break;
+        case 'POST':
+          expectedCode = [SUCCESS_CODE, CREATED_CODE];
+          break;
+        case 'DELETE':
+          expectedCode = NO_CONTENT_CODE;
+          break;
+        default:
+          expectedCode = [SUCCESS_CODE, CREATED_CODE, NO_CONTENT_CODE];
+      }
+
+      if (Array.isArray(expectedCode)) {
+        expect(expectedCode).toContain(status);
+      } else {
+        expect(status).toBe(expectedCode);
+      }
     });
   }
 

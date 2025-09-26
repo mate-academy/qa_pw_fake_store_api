@@ -2,24 +2,24 @@ import { test } from '../../_fixtures/fixtures';
 
 let userId;
 
-test.beforeEach(async ({ newUserData, usersApi }) => {
-  const response = await usersApi.createNewUser(newUserData);
+test.beforeEach(async ({ newUserData, usersAPI }) => {
+  const response = await usersAPI.createNewUser(newUserData);
 
-  await usersApi.assertSuccessResponseCode(response);
+  await usersAPI.assertSuccessResponseCode(response);
 
-  userId = await usersApi.parseIdFromBody(response);
+  userId = await usersAPI.parseIdFromBody(response);
 });
 
-test('Update user with new data', async ({ updateUserData, usersApi }) => {
-  const response = await usersApi.updateUser(userId, updateUserData);
+test('Update user with new data', async ({ updateUserData, usersAPI }) => {
+  const response = await usersAPI.updateUser(userId, updateUserData);
 
-  await usersApi.assertSuccessResponseCode(response);
-  await usersApi.assertEmailHasCorrectValue(response, updateUserData.email);
-  await usersApi.assertUsernameHasCorrectValue(
+  await usersAPI.assertSuccessResponseCode(response);
+  await usersAPI.assertEmailHasCorrectValue(response, updateUserData.email);
+  await usersAPI.assertUsernameHasCorrectValue(
     response,
     updateUserData.username,
   );
-  await usersApi.assertPasswordHasCorrectValue(
+  await usersAPI.assertPasswordHasCorrectValue(
     response,
     updateUserData.password,
   );
