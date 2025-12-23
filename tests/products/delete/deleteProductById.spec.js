@@ -1,16 +1,26 @@
-import { test } from '../../_fixtures/fixtures';
+import { test, expect } from '../../_fixtures/fixtures';
 
-/*
-Preconditions:
-1. Send POST request to '/products' endpoint with body
-2. Assert that the Success Response code is received
-3. Parse the 'id' from the Response body
+test.describe('DELETE /products/:id', () => {
+  test('should delete product by id successfully', async ({ productsApi }) => {
+    // Arrange
+    const productData = {
+      title: 'Product to delete',
+      price: 15.99,
+      description: 'Product created for delete test',
+      image: 'https://i.pravatar.cc',
+      category: 'electronics',
+    };
 
-Test:
-1. Send DELETE request to '/products/{id}' endpoint
-2. Assert that the Success Response code is received
-*/
+    const createResponse = await productsApi.createProduct(productData);
+    const createdProduct = await createResponse.json();
+    const productId = createdProduct.id;
 
-test.beforeEach(async ({}) => {});
+    // Act
+    const deleteResponse = await productsApi.deleteProductById(productId);
+    const deleteResponseBody = await deleteResponse.json();
 
-test('Delete product', async ({}) => {});
+    // Assert
+    expect(deleteResponse.status()).toBe(200);
+    expect(deleteResponseBody.id).toBe(productId);
+  });
+});

@@ -1,21 +1,43 @@
-import { test } from '../../_fixtures/fixtures';
+import { test, expect } from '../../_fixtures/fixtures';
 
-/*
-Preconditions:
-1. Send POST request to '/products' endpoint with body
-2. Assert that the Success Response code is received
-3. Parse the 'id' from the Response body
+test.describe('PUT /products/:id', () => {
+  test('should update product successfully', async ({ productsApi }) => {
+    // Arrange
+    const initialProductData = {
+      title: 'Old Product',
+      price: 20.5,
+      description: 'Old description',
+      image: 'https://i.pravatar.cc',
+      category: 'electronics',
+    };
 
-Test:
-1. Send PUT request to '/products/{id}' with new body
-2. Assert that the Success Response code is received
-3. Assert the Response Body contains correct Title 
-4. Assert the Response Body contains correct Price 
-5. Assert the Response Body contains correct Description 
-6. Assert the Response Body contains correct Category 
-7. Assert the Response Body contains correct Image 
-*/
+    const updatedProductData = {
+      title: 'Updated Product',
+      price: 35.99,
+      description: 'Updated description',
+      image: 'https://i.pravatar.cc',
+      category: 'electronics',
+    };
 
-test.beforeEach(async ({}) => {});
+    const createResponse = await productsApi.createProduct(initialProductData);
+    const createdProduct = await createResponse.json();
+    const productId = createdProduct.id;
 
-test('Update product with new data', async ({}) => {});
+    // Act
+    const updateResponse = await productsApi.updateProduct(
+      productId,
+      updatedProductData,
+    );
+    const updateResponseBody = await updateResponse.json();
+
+    // Assert
+    expect(updateResponse.status()).toBe(200);
+
+    expect(updateResponseBody.id).toBe(productId);
+    expect(updateResponseBody.title).toBe(updatedProductData.title);
+    expect(updateResponseBody.price).toBe(updatedProductData.price);
+    expect(updateResponseBody.description).toBe(updatedProductData.description);
+    expect(updateResponseBody.category).toBe(updatedProductData.category);
+    expect(updateResponseBody.image).toBe(updatedProductData.image);
+  });
+});

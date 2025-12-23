@@ -1,17 +1,28 @@
-import { test } from '../../_fixtures/fixtures';
+import { test, expect } from '../../_fixtures/fixtures';
 
-/*
-Test:
-1. Send POST request to '/products' endpoint with body containing:
-{
-"title": "string",
-"price": 0.1,
-"description": "string",
-"category": "string",
-"image": "http://example.com"
-}
-2. Assert that the Success Response code is received
-3. Assert that the  Response Body contains value 'id'
-*/
+test.describe('POST /products', () => {
+  test('should create product successfully', async ({ productsApi }) => {
+    // Arrange
+    const productData = {
+      title: 'Test Product',
+      price: 99.99,
+      description: 'Test product description',
+      image: 'https://i.pravatar.cc',
+      category: 'electronics',
+    };
 
-test('Create product', async ({}) => {});
+    // Act
+    const response = await productsApi.createProduct(productData);
+    const responseBody = await response.json();
+
+    // Assert
+    expect(response.status()).toBe(200);
+
+    expect(responseBody).toHaveProperty('id');
+    expect(responseBody.title).toBe(productData.title);
+    expect(responseBody.price).toBe(productData.price);
+    expect(responseBody.description).toBe(productData.description);
+    expect(responseBody.image).toBe(productData.image);
+    expect(responseBody.category).toBe(productData.category);
+  });
+});

@@ -1,10 +1,32 @@
-import { test } from '../../_fixtures/fixtures';
+import { test, expect } from '../../_fixtures/fixtures';
 
-/*
-Test:
-1. Send GET request for product with ID 1
-2. Assert that the Success Response code is received
-3. Assert that the Response Body contains field 'id'
-*/
+test.describe('GET /products/:id', () => {
+  test('should return product by id', async ({ productsApi }) => {
+    // Arrange
+    const productData = {
+      title: 'Read Product',
+      price: 49.99,
+      description: 'Product for get by id test',
+      image: 'https://i.pravatar.cc',
+      category: 'electronics',
+    };
 
-test('Read product information', async ({}) => {});
+    const createResponse = await productsApi.createProduct(productData);
+    const createdProduct = await createResponse.json();
+    const productId = createdProduct.id;
+
+    // Act
+    const getResponse = await productsApi.getProductById(productId);
+    const getResponseBody = await getResponse.json();
+
+    // Assert
+    expect(getResponse.status()).toBe(200);
+
+    expect(getResponseBody.id).toBe(productId);
+    expect(getResponseBody.title).toBe(productData.title);
+    expect(getResponseBody.price).toBe(productData.price);
+    expect(getResponseBody.description).toBe(productData.description);
+    expect(getResponseBody.category).toBe(productData.category);
+    expect(getResponseBody.image).toBe(productData.image);
+  });
+});
