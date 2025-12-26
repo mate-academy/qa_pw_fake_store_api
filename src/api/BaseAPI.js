@@ -1,6 +1,7 @@
 import { expect } from '../../tests/_fixtures/fixtures';
 import { testStep } from '../common/helpers/pw';
-import { SUCCESS_CODE } from './constants/responceCodes';
+import { SUCCESS_CODE_200 } from './constants/responceCodes';
+import { SUCCESS_CODE_201 } from './constants/responceCodes';
 
 export class BaseAPI {
   _endpoint;
@@ -28,9 +29,15 @@ export class BaseAPI {
     return body.id;
   }
 
-  async assertSuccessResponseCode(response) {
-    await this.step(`Assert the code ${SUCCESS_CODE} is returned`, async () => {
-      expect(this.parseStatus(response)).toEqual(SUCCESS_CODE);
+  async assertSuccessResponseCode200(response) {
+    await this.step(`Assert the code ${SUCCESS_CODE_200} is returned`, async () => {
+      expect(this.parseStatus(response)).toEqual(SUCCESS_CODE_200);
+    });
+  }
+
+  async assertSuccessResponseCode201(response) {
+    await this.step(`Assert the code ${SUCCESS_CODE_201} is returned`, async () => {
+      expect(this.parseStatus(response)).toEqual(SUCCESS_CODE_201);
     });
   }
 
