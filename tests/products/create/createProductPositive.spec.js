@@ -17,6 +17,6 @@ Test:
 test('Create product', async ({ newProductData, productsApi }) => {
   const response = await productsApi.createNewProduct(newProductData);
 
-  await productsApi.assertSuccessResponseCode(response);
+  await productsApi.assertCreatedResponseCode(response);
   await productsApi.assertBodyHasId(response);
 });
