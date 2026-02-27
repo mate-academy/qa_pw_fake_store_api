@@ -3,7 +3,7 @@ import { test } from '../../_fixtures/fixtures';
 let productId;
 
 test.beforeEach(async ({ newProductData, productsApi }) => {
-  const response = await productsApi.createNewUser(newProductData);
+  const response = await productsApi.createNewProduct(newProductData);
 
   await productsApi.assertSuccessResponseCode(response);
 
@@ -14,7 +14,10 @@ test('Update product with new data', async ({
   updateProductData,
   productsApi
 }) => {
-  const response = await productsApi.updateUser(productId, updateProductData);
+  const response = await productsApi.updateProduct(
+    productId,
+    updateProductData
+  );
 
   await productsApi.assertSuccessResponseCode(response);
   await productsApi.assertTitleIsCorrect(
