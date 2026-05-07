@@ -34,13 +34,7 @@ export class UsersAPI extends BaseAPI {
     });
   }
 
-  async deleteUser(userId) {
-    return await this.step(`Delete user`, async () => {
-      return await this.request.delete(`${this._endpoint}/${userId}`, {
-        headers: this._headers,
-      });
-    });
-  }
+
 
   async getAllUsers() {
     return await this.step(`Read all users data`, async () => {
