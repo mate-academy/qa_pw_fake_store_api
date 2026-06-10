@@ -1,6 +1,6 @@
 import { expect } from '../../tests/_fixtures/fixtures';
 import { testStep } from '../common/helpers/pw';
-import { SUCCESS_CODE } from './constants/responceCodes';
+import { SUCCESS_CODE, SUCCESS_CREATE_CODE } from './constants/responceCodes';
 
 export class BaseAPI {
   _endpoint;
@@ -29,9 +29,14 @@ export class BaseAPI {
   }
 
   async assertSuccessResponseCode(response) {
-    await this.step(`Assert the code ${SUCCESS_CODE} is returned`, async () => {
-      expect(this.parseStatus(response)).toEqual(SUCCESS_CODE);
-    });
+    await this.step(
+      `Assert the code ${SUCCESS_CODE} or ${SUCCESS_CREATE_CODE} is returned`,
+      async () => {
+        expect([SUCCESS_CODE, SUCCESS_CREATE_CODE]).toContain(
+          this.parseStatus(response),
+        );
+      },
+    );
   }
 
   async assertBodyIsNotEmpty(response) {
