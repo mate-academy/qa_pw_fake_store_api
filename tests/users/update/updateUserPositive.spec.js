@@ -5,7 +5,7 @@ let userId;
 test.beforeEach(async ({ newUserData, usersApi }) => {
   const response = await usersApi.createNewUser(newUserData);
 
-  await usersApi.assertSuccessResponseCode(response);
+  await usersApi.assertSuccess201ResponseCode(response);
 
   userId = await usersApi.parseIdFromBody(response);
 });
@@ -13,7 +13,7 @@ test.beforeEach(async ({ newUserData, usersApi }) => {
 test('Update user with new data', async ({ updateUserData, usersApi }) => {
   const response = await usersApi.updateUser(userId, updateUserData);
 
-  await usersApi.assertSuccessResponseCode(response);
+  await usersApi.assertSuccess200ResponseCode(response);
   await usersApi.assertEmailHasCorrectValue(response, updateUserData.email);
   await usersApi.assertUsernameHasCorrectValue(
     response,

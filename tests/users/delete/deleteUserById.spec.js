@@ -5,7 +5,7 @@ let userId;
 test.beforeEach(async ({ newUserData, usersApi }) => {
   const response = await usersApi.createNewUser(newUserData);
 
-  await usersApi.assertSuccessResponseCode(response);
+  await usersApi.assertSuccess201ResponseCode(response);
 
   userId = await usersApi.parseIdFromBody(response);
 });
@@ -13,5 +13,5 @@ test.beforeEach(async ({ newUserData, usersApi }) => {
 test('Delete user by Id', async ({ usersApi }) => {
   const response = await usersApi.deleteUser(userId);
 
-  await usersApi.assertSuccessResponseCode(response);
+  await usersApi.assertSuccess200ResponseCode(response);
 });
