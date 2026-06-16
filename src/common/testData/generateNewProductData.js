@@ -2,17 +2,17 @@ import { faker } from '@faker-js/faker';
 
 export function generateNewProductData(logger = null) {
   const title = faker.commerce.productName();
-  const price = faker.commerce.price();
+  const price = Number(faker.commerce.price());
   const category = faker.commerce.department();
   const description = faker.commerce.productDescription();
-  const imageUri = faker.image.url();
+  const image = faker.image.url();
 
   const product = {
     title: `${title}`.replaceAll(`'`).toLowerCase(),
     price: `${price}`.toLowerCase(),
     description: `${description}`.toLowerCase(),
     category: `${category}`.toLowerCase(),
-    imageUri: `${imageUri}`.toLowerCase(),
+    image: `${image}`.toLowerCase(),
   };
 
   if (logger) {
