@@ -82,11 +82,11 @@ export class ProductAPI extends BaseAPI {
     });
   }
 
-  async assertImageUriValue(response, imageUri) {
+  async assertImageUriValue(response, image) {
     await this.step(`Assert the good' imageUri is correct`, async () => {
       const body = await this.parseBody(response);
 
-      expect(body.imageUri === imageUri).toBe(true);
+      expect(body.image === image).toBe(true);
     });
   }
   
