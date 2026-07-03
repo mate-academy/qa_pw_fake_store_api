@@ -10,7 +10,19 @@ Test:
 1. Send DELETE request to '/products/{id}' endpoint
 2. Assert that the Success Response code is received
 */
+let productId;
+test.beforeEach(async ({
+    productAPI,
+    newProductData,
+}) => {
+ const response = await productAPI.createNewProduct(newProductData);
+ await productAPI.assertCreatedResourceResponseCode(response);
+ productId = await productAPI.parseIdFromBody(response);
+});
 
-test.beforeEach(async ({}) => {});
-
-test('Delete product', async ({}) => {});
+test('Delete product', async ({
+    productAPI,
+}) => {
+  const response = await productAPI.deleteProduct(productId);
+  await productAPI.assertSuccessResponseCode(response);
+});

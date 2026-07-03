@@ -15,7 +15,27 @@ Test:
 6. Assert the Response Body contains correct Category 
 7. Assert the Response Body contains correct Image 
 */
+let productId;
+test.beforeEach(async ({
+    productAPI,
+    newProductData,
+}) => {
+const response = await productAPI.createNewProduct(newProductData);
+ await productAPI.assertCreatedResourceResponseCode(response);
+ productId = await productAPI.parseIdFromBody(response);
+});
 
-test.beforeEach(async ({}) => {});
+test('Update product with new data', async ({ 
+productAPI,
+newProductData,
+}) => {
+const response = await productAPI.updateProduct(productId, newProductData);
+await productAPI.assertSuccessResponseCode(response);
 
-test('Update product with new data', async ({}) => {});
+await productAPI.assertTitleHasCorrectValue(response, newProductData.title);
+await productAPI.assertPriceHasCorrectValue(response, newProductData.price);
+await productAPI.assertDescriptionHasCorrectValue(response, newProductData.description);
+await productAPI.assertCategoryHasCorrectValue(response, newProductData.category);
+await productAPI.assertImageHasCorrectValue(response, newProductData.image);
+
+});

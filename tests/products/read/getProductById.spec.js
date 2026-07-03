@@ -7,4 +7,10 @@ Test:
 3. Assert that the Response Body contains field 'id'
 */
 
-test('Read product information', async ({}) => {});
+test('Read product information', async ({
+    productAPI,
+}) => {
+ const response = await productAPI.getProduct(1);
+ await productAPI.assertSuccessResponseCode(response);
+ await productAPI.assertBodyHasId(response);
+});
