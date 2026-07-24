@@ -9,7 +9,7 @@ export function generateNewProductData(logger = null) {
   const image = faker.image.url();
 
   const product = {
-    username: id,
+    id: id,
     title: title,
     price: price,
     description: description,
