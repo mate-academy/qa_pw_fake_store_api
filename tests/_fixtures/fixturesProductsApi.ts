@@ -1,6 +1,6 @@
 import { test as base } from '@playwright/test';
 import { generateNewProductData } from '../../src/common/testData/generateNewProductData';
-import { ProductsAPI } from '../../src/api/endpoints/ProductsApi';
+import { ProductsAPI } from '../../src/api/endpoints/ProductsAPI';
 
 export const test = base.extend<{
   productsApi;
