@@ -7,7 +7,7 @@
 - [Main Task](#main-task)
 - [Task Reporting](#task-reporting)
 
-## Description
+## Description 
 
 In this task you need to create tests for the /product endpoint of the [FakeStoreAPI](https://fakestoreapi.com/docs#tag/Products). 
 

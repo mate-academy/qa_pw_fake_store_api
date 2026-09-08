@@ -1,4 +1,5 @@
 import { test } from '../../_fixtures/fixtures';
+import * as responseCodes from '../../../src/api/constants/responseCodes';
 
 /*
 Preconditions:
@@ -11,6 +12,23 @@ Test:
 2. Assert that the Success Response code is received
 */
 
-test.beforeEach(async ({}) => {});
+let productId;
 
-test('Delete product', async ({}) => {});
+test.beforeEach(async ({ productsAPI, newProductData }) => {
+  const response = await productsAPI.create(newProductData);
+  await productsAPI.assertSuccessResponseCode(
+    response,
+    responseCodes.SUCCESS_CREATED,
+  );
+
+  productId = await productsAPI.parseIdFromBody(response);
+});
+
+test('Delete product', async ({ productsAPI }) => {
+  const response = await productsAPI.delete(productId);
+
+  await productsAPI.assertSuccessResponseCode(
+    response,
+    responseCodes.SUCCESS_OK,
+  );
+});

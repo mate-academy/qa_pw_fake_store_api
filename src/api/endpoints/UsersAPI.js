@@ -8,48 +8,6 @@ export class UsersAPI extends BaseAPI {
     this._headers = { 'content-type': 'application/json' };
   }
 
-  async createNewUser(body) {
-    return await this.step(`Create new user`, async () => {
-      return await this.request.post(this._endpoint, {
-        data: body,
-        headers: this._headers,
-      });
-    });
-  }
-
-  async updateUser(userId, body) {
-    return await this.step(`Update user data`, async () => {
-      return await this.request.put(`${this._endpoint}/${userId}`, {
-        data: body,
-        headers: this._headers,
-      });
-    });
-  }
-
-  async getUser(userId) {
-    return await this.step(`Read user data`, async () => {
-      return await this.request.get(`${this._endpoint}/${userId}`, {
-        headers: this._headers,
-      });
-    });
-  }
-
-  async deleteUser(userId) {
-    return await this.step(`Delete user`, async () => {
-      return await this.request.delete(`${this._endpoint}/${userId}`, {
-        headers: this._headers,
-      });
-    });
-  }
-
-  async getAllUsers() {
-    return await this.step(`Read all users data`, async () => {
-      return await this.request.get(this._endpoint, {
-        headers: this._headers,
-      });
-    });
-  }
-
   async assertNameIsCorrect(response, name) {
     await this.step(`Assert the good' name is correct`, async () => {
       const body = await this.parseBody(response);
