@@ -1,4 +1,5 @@
 import { test } from '../../_fixtures/fixtures';
+import * as responseCodes from '../../../src/api/constants/responseCodes';
 
 /*
 Preconditions:
@@ -16,6 +17,38 @@ Test:
 7. Assert the Response Body contains correct Image 
 */
 
-test.beforeEach(async ({}) => {});
+let productId;
 
-test('Update product with new data', async ({}) => {});
+test.beforeEach(async ({ productsAPI, newProductData }) => {
+  const response = await productsAPI.create(newProductData);
+  await productsAPI.assertSuccessResponseCode(
+    response,
+    responseCodes.SUCCESS_CREATED,
+  );
+
+  productId = await productsAPI.parseIdFromBody(response);
+});
+
+test('Update product with new data', async ({
+  productsAPI,
+  updateProductData,
+}) => {
+  const response = await productsAPI.update(productId, updateProductData);
+
+  await productsAPI.assertSuccessResponseCode(
+    response,
+    responseCodes.SUCCESS_OK,
+  );
+
+  await productsAPI.assertTitleIsCorrect(response, updateProductData.title);
+  await productsAPI.assertPriceIsCorrect(response, updateProductData.price);
+  await productsAPI.assertDescriptionIsCorrect(
+    response,
+    updateProductData.description,
+  );
+  await productsAPI.assertCategoryIsCorrect(
+    response,
+    updateProductData.category,
+  );
+  await productsAPI.assertImageIsCorrect(response, updateProductData.image);
+});

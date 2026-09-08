@@ -1,4 +1,5 @@
 import { test } from '../../_fixtures/fixtures';
+import { SUCCESS_CREATED } from '../../../src/api/constants/responseCodes';
 
 /*
 Test:
@@ -14,4 +15,9 @@ Test:
 3. Assert that the  Response Body contains value 'id'
 */
 
-test('Create product', async ({}) => {});
+test('Create product', async ({ productsAPI, newProductData }) => {
+  const response = await productsAPI.create(newProductData);
+
+  await productsAPI.assertSuccessResponseCode(response, SUCCESS_CREATED);
+  await productsAPI.assertBodyHasId(response);
+});
