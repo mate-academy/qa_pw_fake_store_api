@@ -16,12 +16,12 @@ export const test = base.extend<{
   newProductData: async ({ logger }, use) => {
     const productData = generateNewProductData(logger);
 
-    use(productData);
+    await use(productData);
   },
 
   updateProductData: async ({ logger }, use) => {
     const productData = generateNewProductData(logger);
 
-    use(productData);
+    await use(productData);
   },
 });
