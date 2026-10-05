@@ -1,4 +1,4 @@
-import { expect } from '../../../tests/_fixtures/fixtures';
+import { expect } from '../../tests/_fixtures/fixtures';
 import { BaseAPI } from '../BaseAPI';
 
 export class ProductsAPI extends BaseAPI {
