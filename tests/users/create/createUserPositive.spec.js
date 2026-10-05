@@ -6,3 +6,4 @@ test('Create user', async ({ newUserData, usersApi }) => {
   await usersApi.assertSuccessResponseCode(response);
   await usersApi.assertBodyHasId(response);
 });
+https://fakestoreapi.com/
