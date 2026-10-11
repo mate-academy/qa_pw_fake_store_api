@@ -29,7 +29,7 @@ In this task you need to create tests for the /product endpoint of the [FakeStor
 - `read/getProductById.spec.js`; 
 - `update/updateProductPositive.spec.js`; 
 - `delete/deleteProductById.spec.js`; 
-3. Follow the test steps in comments of each spec file.
+2. Follow the test steps in comments of each spec file.
 3. Use `tests/users/**.spec.js` files as example.
 4. Create class `ProductsAPI.js` under the `src/api/endpoints` and add all the methods for work with the `/products` endpoint. Use `UsersAPI.js` as exapmle. 
 5. Create helper fixtures in file `tests/_fixtures/fixturesProductsApi.ts` file. Do not forget to merge new fixture file to the ``tests/_fixtures/fixtures.ts`.
