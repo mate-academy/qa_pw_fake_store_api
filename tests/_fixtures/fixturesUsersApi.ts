@@ -1,11 +1,13 @@
-import { test as base } from '@playwright/test';
 import { UsersAPI } from '../../src/api/endpoints/UsersAPI';
 import { generateNewUserData } from '../../src/common/testData/generateNewUserData';
+import { test as genericTest } from './fixturesGeneric';
 
-export const test = base.extend<{
-  usersApi;
-  newUserData;
-  updateUserData;
+type UserData = ReturnType<typeof generateNewUserData>;
+
+export const test = genericTest.extend<{
+  usersApi: UsersAPI;
+  newUserData: UserData;
+  updateUserData: UserData;
 }>({
   usersApi: async ({ request }, use) => {
     const client = new UsersAPI(request);
