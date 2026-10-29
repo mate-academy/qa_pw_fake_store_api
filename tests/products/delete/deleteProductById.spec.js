@@ -1,5 +1,5 @@
 import { test } from '../../_fixtures/fixtures';
-
+let productId;
 /*
 Preconditions:
 1. Send POST request to '/products' endpoint with body
@@ -11,6 +11,16 @@ Test:
 2. Assert that the Success Response code is received
 */
 
-test.beforeEach(async ({}) => {});
+test.beforeEach(async ({ newProductData, productsApi }) => {
+  const response = await productsApi.createNewProduct(newProductData);
 
-test('Delete product', async ({}) => {});
+  await productsApi.assertCreatedResponseCode(response);
+
+  productId = await productsApi.parseIdFromBody(response);
+});
+
+test('Delete product', async ({ productsApi }) => {
+  const response = await productsApi.deleteProduct(productId);
+
+  await productsApi.assertSuccessResponseCode(response);
+});
