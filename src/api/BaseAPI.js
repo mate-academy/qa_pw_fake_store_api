@@ -34,6 +34,12 @@ export class BaseAPI {
     });
   }
 
+  async assertCreatedResponseCode(response) {
+    await this.step(`Assert the code 201 is returned`, async () => {
+      expect(this.parseStatus(response)).toEqual(201);
+    });
+  }
+
   async assertBodyIsNotEmpty(response) {
     await this.step(`Assert response body is not empty`, async () => {
       const body = await this.parseBody(response);
