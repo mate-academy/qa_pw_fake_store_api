@@ -20,11 +20,11 @@ test('Update product with new data', async ({
   await productsApi.assertPriceIsCorrect(response, updateProductData.price);
   await productsApi.assertDescriptionIsCorrect(
     response,
-    updateProductData.description
+    updateProductData.description,
   );
   await productsApi.assertCategoryIsCorrect(
     response,
-    updateProductData.category
+    updateProductData.category,
   );
   await productsApi.assertImageIsCorrect(response, updateProductData.image);
 
