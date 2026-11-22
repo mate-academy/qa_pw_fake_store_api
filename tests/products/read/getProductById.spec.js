@@ -1,10 +1,13 @@
-import { test } from '../../_fixtures/fixtures';
+import { test, expect } from '../../_fixtures/fixtures';
 
-/*
-Test:
-1. Send GET request for product with ID 1
-2. Assert that the Success Response code is received
-3. Assert that the Response Body contains field 'id'
-*/
+test('Read product information', async ({ productsApi }) => {
+  const productId = 1;
 
-test('Read product information', async ({}) => {});
+  const response = await productsApi.getProduct(productId);
+
+  await productsApi.assertSuccessResponseCode(response);
+
+  const responseBody = await productsApi.parseBody(response);
+
+  expect(responseBody.id).toEqual(productId);
+});

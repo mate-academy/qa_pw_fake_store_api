@@ -9,7 +9,7 @@ export class UsersAPI extends BaseAPI {
   }
 
   async createNewUser(body) {
-    return await this.step(`Create new user`, async () => {
+    return await this.step('Create new user', async () => {
       return await this.request.post(this._endpoint, {
         data: body,
         headers: this._headers,
@@ -18,7 +18,7 @@ export class UsersAPI extends BaseAPI {
   }
 
   async updateUser(userId, body) {
-    return await this.step(`Update user data`, async () => {
+    return await this.step('Update user data', async () => {
       return await this.request.put(`${this._endpoint}/${userId}`, {
         data: body,
         headers: this._headers,
@@ -27,7 +27,7 @@ export class UsersAPI extends BaseAPI {
   }
 
   async getUser(userId) {
-    return await this.step(`Read user data`, async () => {
+    return await this.step('Read user data', async () => {
       return await this.request.get(`${this._endpoint}/${userId}`, {
         headers: this._headers,
       });
@@ -35,7 +35,7 @@ export class UsersAPI extends BaseAPI {
   }
 
   async deleteUser(userId) {
-    return await this.step(`Delete user`, async () => {
+    return await this.step('Delete user', async () => {
       return await this.request.delete(`${this._endpoint}/${userId}`, {
         headers: this._headers,
       });
@@ -43,15 +43,21 @@ export class UsersAPI extends BaseAPI {
   }
 
   async getAllUsers() {
-    return await this.step(`Read all users data`, async () => {
+    return await this.step('Read all users data', async () => {
       return await this.request.get(this._endpoint, {
         headers: this._headers,
       });
     });
   }
 
+  async assertCreatedResponseCode(response) {
+    await this.step('Assert response code is 201', async () => {
+      expect(this.parseStatus(response)).toEqual(201);
+    });
+  }
+
   async assertNameIsCorrect(response, name) {
-    await this.step(`Assert the good' name is correct`, async () => {
+    await this.step("Assert the user's name is correct", async () => {
       const body = await this.parseBody(response);
 
       expect(body.name).toEqual(name);
@@ -59,26 +65,26 @@ export class UsersAPI extends BaseAPI {
   }
 
   async assertEmailHasCorrectValue(response, email) {
-    await this.step(`Assert response body has correct email`, async () => {
+    await this.step('Assert response body has correct email', async () => {
       const body = await this.parseBody(response);
 
-      expect(body.email === email).toBe(true);
+      expect(body.email).toEqual(email);
     });
   }
 
   async assertUsernameHasCorrectValue(response, username) {
-    await this.step(`Assert response body has correct username`, async () => {
+    await this.step('Assert response body has correct username', async () => {
       const body = await this.parseBody(response);
 
-      expect(body.username === username).toBe(true);
+      expect(body.username).toEqual(username);
     });
   }
 
   async assertPasswordHasCorrectValue(response, password) {
-    await this.step(`Assert response body has correct password`, async () => {
+    await this.step('Assert response body has correct password', async () => {
       const body = await this.parseBody(response);
 
-      expect(body.password === password).toBe(true);
+      expect(body.password).toEqual(password);
     });
   }
 }
